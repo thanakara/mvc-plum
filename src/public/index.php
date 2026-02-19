@@ -2,23 +2,8 @@
 
 declare(strict_types=1);
 
-session_start();
+require_once __DIR__ . "/../vendor/autoload.php";
 
-class Controller
-{
-    /**
-     * Get route
-     */
-    public function index()
-    {
-        echo <<<HTML
-        <h3 style="text-align: center;background-color: lightgrey;">
-            <i>@__index__</i>
-            </h3>
-        HTML;
-    }
-}
+$router = new App\Router();
 
-
-$controller = new Controller();
-$controller->index();
+var_dump($router);
