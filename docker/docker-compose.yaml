@@ -1,0 +1,56 @@
+# no version needed; auto-derived
+
+services:
+  app:
+    build:
+      context: . # better that "" or ./
+      dockerfile: Dockerfile
+    restart: always
+    working_dir: /var/www # no trailling /
+    volumes:
+      - ../:/var/www
+    networks:
+      - appnet
+    depends_on:
+      - db
+
+  nginx:
+    image: nginx:alpine
+    restart: always
+    depends_on:
+      - app
+    ports:
+      - "8000:80" # using strings for "<port-mapping>"
+    volumes:
+      - ../:/var/www
+      - ./nginx:/etc/nginx/conf.d
+    networks:
+      - appnet
+    
+  db:
+    image: postgres:16-alpine
+    restart: always
+    environment:
+    # use --env-file flag on docker compose
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    # inside docker/ dir, there will be created storage/postgresql:
+    volumes:
+      - ./storage/postgresql:/var/lib/postgresql/data
+    ports:
+      - "5432:5432" # optional: expose to host
+    networks:
+      - appnet
+
+
+# adding network is best practice
+networks:
+  appnet:
+
+# if the DB volume was NAMED, like: "pgdata" for example,
+# we need a last section of:
+# ---------
+# volumes:
+#   pgdata:
+#----------
