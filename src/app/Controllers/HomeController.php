@@ -8,10 +8,10 @@ use App\View;
 
 class HomeController
 {
-    /**
-     * Redirects to view and extracts get params from the title
-     * example: localhost:8000/?name=al&email=a@b.com
-     */
+    /*
+    Redirects to view and extracts get params from the title.
+    example: localhost:8000/?name=al&email=a@b.com
+    */
     public function index(): View
     {
         return View::make(

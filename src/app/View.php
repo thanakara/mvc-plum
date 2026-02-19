@@ -22,7 +22,7 @@ class View
         }
 
         // not safe for sensitive information
-        extract($this->params);
+        // extract($this->params);
 
         ob_start();
         include $viewPath;

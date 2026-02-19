@@ -2,29 +2,28 @@
 
 declare(strict_types=1);
 
-use App\Exceptions\RouteNotFoundException;
-use App\View;
+use App\App;
+use App\Router;
+use App\Config;
+use App\Controllers\HomeController;
 
 require_once __DIR__ . "/../vendor/autoload.php";
 define("VIEWDIR", __DIR__ . "/../views");
 
-session_start();
 
-$router = new App\Router();
-
+$router = new Router;
 $router->get(
     route: "/",
     // action: fn() => "<i>__index@home_controller</i>",
-    action: [App\Controllers\HomeController::class, "index"]
+    action: [HomeController::class, "index"]
 );
 
+$request = [
+    "uri"       =>  $_SERVER["REQUEST_URI"],
+    "method"    =>  $_SERVER["REQUEST_METHOD"],
+];
 
-try {
-    echo $router->resolve(
-        requestUri: $_SERVER["REQUEST_URI"],
-        requestMethod: $_SERVER["REQUEST_METHOD"],
-    );
-} catch (RouteNotFoundException) {
-    http_response_code(404);
-    echo View::make(view: "error/404");
-}
+$config = new Config(env: $_ENV);
+
+$app = new App($router, $request, $config);
+$app->run();
