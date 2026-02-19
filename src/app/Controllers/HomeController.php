@@ -4,15 +4,19 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
+use App\View;
+
 class HomeController
 {
-    // Not adding Attrs yet
-    public function index()
+    /**
+     * Redirects to view and extracts get params from the title
+     * example: localhost:8000/?name=al&email=a@b.com
+     */
+    public function index(): View
     {
-        echo <<<HTML
-        <h3 style="text-align: center;background-color: lightgray">
-            <i>__index@home_controller</i>
-            </h3>
-        HTML;
+        return View::make(
+            view: "index",
+            params: ["fromGet" => $_GET]
+        );
     }
 }

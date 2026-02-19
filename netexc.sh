@@ -23,4 +23,4 @@ arg-logic() {
     fi
 }
 
-arg-logic
+arg-logic 2>&1
