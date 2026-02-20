@@ -9,9 +9,9 @@
 
 <body>
     <h2 style="text-align: center;background-color: lightgray">
-        <i>__index@acc/create</i>
+        <i>@__acc/create</i>
     </h2>
-    <p><mark>GET :</mark></p>
+    <p><mark><i>curl -X GET :</i></mark></p>
     <?
     echo "<pre>";
     print_r($this->fromGet);

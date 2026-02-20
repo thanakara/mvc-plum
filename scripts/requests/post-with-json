@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# from the docker-app-1 container cli:
+URL="http://nginx/accounts"
+# locally:
+# URL="http://localhost:8000/accounts"
+
+
+jsonpath="./scripts/requests/template.json"
+curl -s -X POST $URL \
+    -d @$jsonpath \
+    -H "Content-Type: application/json" \
+    -w "\nresponse_code: <%{response_code}>\n"

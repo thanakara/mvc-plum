@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+request_form="acc=al123&is_active=false"
+URL="http://nginx/accounts?$request_form"
+
+
+curl -s -X GET $URL -w "\nhttp_code: <%{http_code}>\n"
+

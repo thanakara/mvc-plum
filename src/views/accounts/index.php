@@ -9,21 +9,16 @@
 
 <body>
     <h2 style="text-align: center;background-color: lightgray">
-        <i>__index@acc</i>
+        <i>@__acc/index</i>
     </h2>
     <!-- 1. __get(): returns keys of params property -->
     <?
-    // header("Content-Type: application/json");
-
     $method = $_SERVER["REQUEST_METHOD"];
     $kwargs = ($method == "GET") ? $this->fromGet : $this->fromPost;
-    echo "<p><mark><i>-X $method: </i></mark></p>";
+    echo "<p><mark><i>curl -X $method: </i></mark></p>";
     echo "<pre>";
     print_r($kwargs);
     echo "</pre>";
-
-    echo  "JSON :<br />";
-    echo json_encode($kwargs, JSON_PRETTY_PRINT);
     ?>
 </body>
 
