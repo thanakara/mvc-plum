@@ -7,6 +7,7 @@ use App\Router;
 use App\Config;
 use Dotenv\Dotenv;
 use App\Controllers\HomeController;
+use App\Controllers\AccountsController;
 
 require_once __DIR__ . "/../vendor/autoload.php";
 define("VIEWDIR", __DIR__ . "/../views");
@@ -15,11 +16,11 @@ $dotenv = Dotenv::createImmutable(dirname(__DIR__, levels: 2));
 $dotenv->load();
 
 $router = new Router;
-$router->get(
-    route: "/",
-    // action: fn() => "<i>__index@home_controller</i>",
-    action: [HomeController::class, "index"]
-);
+$router
+    ->get("/", [HomeController::class, "index"])
+    ->get("/accounts", [AccountsController::class, "index"])
+    ->post("/accounts", [AccountsController::class, "store"])
+    ->get("/accounts/create", [AccountsController::class, "create"]);
 
 $request = [
     "uri"       =>  $_SERVER["REQUEST_URI"],

@@ -9,17 +9,14 @@
 
 <body>
     <h2 style="text-align: center;background-color: lightgray">
-        <i>_index@home_controller</i>
+        <i>__index@home</i>
     </h2>
-    <p><mark>$_GET:</mark></p>
-    <!-- 1. __get(): returns keys of params property -->
+    <p><mark>GET :</mark></p>
     <?
     echo "<pre>";
     print_r($this->fromGet);
     echo "</pre>";
     ?>
-    <!-- 2. extract() function inside View class [not recommended] -->
-    <!-- var_dump($fromGet) -->
 </body>
 
 </html>

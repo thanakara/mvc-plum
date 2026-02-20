@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accounts</title>
+</head>
+
+<body>
+    <h2 style="text-align: center;background-color: lightgray">
+        <i>__index@acc/create</i>
+    </h2>
+    <p><mark>GET :</mark></p>
+    <?
+    echo "<pre>";
+    print_r($this->fromGet);
+    echo "</pre>";
+    ?>
+    <h2 style="text-align: center;color: orangered;"><u>SIGN IN</u></h2>
+    <div style="text-align: center;">
+        <form action="/accounts" method="post">
+            <label for="account_name"><b>account_name: </b></label>
+            <input type="text" name="account_name" placeholder="IGN" required>
+            <label for="region"><b>region: </b></label>
+            <select name="region" id="region" required>
+                <option value="">---Select---</option>
+                <option value="EU">EU</option>
+                <option value="EUW">EUW</option>
+                <option value="NA">NA</option>
+                <option value="KR">KR</option>
+            </select>
+            <br><br>
+            <label for="email"><b>email: </b></label>
+            <input type="text" name="email" placeholder="a@b.com" required>
+            <br><br>
+            <button type="submit">Submit</button>
+
+            <!-- <script> -->
+        </form>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# from the docker-app-1 container cli:
+URL="http://nginx/accounts"
+# locally:
+# URL="http://localhost:8000/accounts"
+
+request_form="account_name=al&region=NA&email=a@b.com"
+curl $URL -X POST -d $request_form
