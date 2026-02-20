@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <h2 style="text-align: center;background-color: lightgray">
+    <h2 style="text-align: center;background-color: silver">
         <i>@__index</i>
     </h2>
     <p><mark><i>curl -X GET :</i></mark></p>
@@ -17,6 +17,12 @@
     print_r($this->fromGet);
     echo "</pre>";
     ?>
+    <script>
+        const getParams = <?= json_encode($this->fromGet) ?>;
+        document.body.style.backgroundColor = "lightgray";
+
+        console.log(getParams);
+    </script>
 </body>
 
 </html>

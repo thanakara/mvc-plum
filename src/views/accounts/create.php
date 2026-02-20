@@ -17,7 +17,7 @@
     print_r($this->fromGet);
     echo "</pre>";
     ?>
-    <h2 style="text-align: center;color: orangered;"><u>SIGN IN</u></h2>
+    <h2 id="header2">SIGN IN</h2>
     <div style="text-align: center;">
         <form action="/accounts" method="post">
             <label for="account_name"><b>account_name: </b></label>
@@ -39,6 +39,24 @@
             <!-- <script> -->
         </form>
     </div>
+    <script>
+        const header2 = document.getElementById("header2");
+        const getParams = <?= json_encode($this->fromGet) ?>;
+
+        document.body.style.backgroundColor = "lightgray";
+
+        header2.style.backgroundColor = "orangered";
+        header2.style.textAlign = "center";
+        header2.style.padding = "10px";
+        header2.style.border = "2px solid gray";
+        header2.style.borderRadius = "8px";
+        header2.style.margin = "10px auto";
+        header2.style.width = "30%";
+        header2.style.fontSize = "24px";
+        header2.style.fontWeight = "bold";
+
+        console.log(getParams)
+    </script>
 </body>
 
 </html>
