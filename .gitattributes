@@ -1,6 +1,1 @@
 scripts/** text eol=lf
-
-*.php linguist-language=PHP
-docker/** linguist-vendored
-scripts/** linguist-vendored
-src/composer.lock linguist-vendored
