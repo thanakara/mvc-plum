@@ -31,7 +31,7 @@
             document.body.style.backgroundColor = "lightgray";
             const params = <?= json_encode($params) ?>;
 
-            console.log(params)
+            console.log(JSON.stringify(params, null, 2));
         </script>
     </body>
 

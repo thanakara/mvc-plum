@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accounts</title>
+    <link rel="stylesheet" href="/fg/accounts.css">
 </head>
 
 <body>
@@ -35,28 +36,14 @@
             <input type="text" name="email" placeholder="a@b.com" required>
             <br><br>
             <button type="submit">Submit</button>
-
-            <!-- <script> -->
         </form>
     </div>
     <script>
-        const header2 = document.getElementById("header2");
         const getParams = <?= json_encode($this->fromGet) ?>;
 
-        document.body.style.backgroundColor = "lightgray";
-
-        header2.style.backgroundColor = "orangered";
-        header2.style.textAlign = "center";
-        header2.style.padding = "10px";
-        header2.style.border = "2px solid gray";
-        header2.style.borderRadius = "8px";
-        header2.style.margin = "10px auto";
-        header2.style.width = "30%";
-        header2.style.fontSize = "24px";
-        header2.style.fontWeight = "bold";
-
-        console.log(getParams)
+        console.log(JSON.stringify(getParams, null, 2));
     </script>
 </body>
+
 
 </html>

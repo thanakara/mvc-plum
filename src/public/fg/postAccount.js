@@ -1,6 +1,7 @@
-const body = require("./template.json");
+const body = require("../../../scripts/requests/template.json");
 
 async function postAccount() {
+    // containerURL = "http://nginx/accounts";
     const base = "http://localhost:8000/accounts";
 
     try {

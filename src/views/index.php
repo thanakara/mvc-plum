@@ -18,10 +18,10 @@
     echo "</pre>";
     ?>
     <script>
-        const getParams = <?= json_encode($this->fromGet) ?>;
         document.body.style.backgroundColor = "lightgray";
+        const getParams = <?= json_encode($this->fromGet) ?>;
 
-        console.log(getParams);
+        console.log(JSON.stringify(getParams, null, 2));
     </script>
 </body>
 
