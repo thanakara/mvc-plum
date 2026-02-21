@@ -1,10 +1,3 @@
-    <?
-    // header("Content-Type: application/json");
-
-    // $method = $_SERVER["REQUEST_METHOD"];
-    // $params = ($method == "GET") ? $this->fromGet : $this->fromPost;
-    // echo json_encode($params);
-    ?>
     <!DOCTYPE html>
     <html lang="en">
 
@@ -19,7 +12,7 @@
             <i>@__acc/index</i>
         </h2>
         <!-- 1. __get(): returns keys of params property -->
-        <?
+        <?php
         $method = $_SERVER["REQUEST_METHOD"];
         $params = ($method == "GET") ? $this->fromGet : $this->fromPost;
         echo "<p><mark><i>curl -X $method: </i></mark></p>";

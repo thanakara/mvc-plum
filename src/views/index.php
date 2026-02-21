@@ -12,7 +12,7 @@
         <i>@__index</i>
     </h2>
     <p><mark><i>curl -X GET :</i></mark></p>
-    <?
+    <?php
     echo "<pre>";
     print_r($this->fromGet);
     echo "</pre>";
