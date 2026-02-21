@@ -1,1 +1,3 @@
 scripts/** text eol=lf
+
+*.php linguist-language=PHP
