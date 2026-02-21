@@ -16,11 +16,12 @@ $dotenv = Dotenv::createImmutable(dirname(__DIR__, levels: 2));
 $dotenv->load();
 
 $router = new Router;
-$router
-    ->get("/", [HomeController::class, "index"])
-    ->get("/accounts", [AccountsController::class, "index"])
-    ->post("/accounts", [AccountsController::class, "store"])
-    ->get("/accounts/create", [AccountsController::class, "create"]);
+$router->registerFromControllerAttrs(
+    controllers: [
+        HomeController::class,
+        AccountsController::class
+    ]
+);
 
 $request = [
     "uri"       =>  $_SERVER["REQUEST_URI"],
@@ -31,3 +32,15 @@ $config = new Config(env: $_ENV);
 
 $app = new App($router, $request, $config);
 $app->run();
+
+//
+echo <<<HTML
+<hr />
+<h3 style="text-align: left;">
+    Routes:
+</h3>
+HTML;
+echo "<pre>";
+echo json_encode($router->getAllRoutes(), JSON_PRETTY_PRINT);
+echo "</pre>";
+// 

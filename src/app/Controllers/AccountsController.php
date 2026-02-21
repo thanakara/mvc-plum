@@ -5,9 +5,13 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 use App\View;
+use App\Attributes\Get;
+use App\Attributes\Post;
 
 class AccountsController
 {
+
+    #[Get("/accounts")]
     public function index(): View
     {
         return View::make(
@@ -16,6 +20,7 @@ class AccountsController
         );
     }
 
+    #[Get("/accounts/create")]
     public function create(): View
     {
         return View::make(
@@ -24,6 +29,7 @@ class AccountsController
         );
     }
 
+    #[Post("/accounts")]
     public function store()
     {
         /*
