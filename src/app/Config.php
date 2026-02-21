@@ -17,7 +17,8 @@ class Config
         $this->config = [
             "repo"  => "/mvc-plum",
             "db"    => [
-                "driver"    =>  $env["DB_DRIVER"] ?? "pdo_pgsql",
+                "driver"    =>  $env["DB_DRIVER"] ?? "pgsql", # --pdo
+                // "driver"    =>  $env["DB_DRIVER"] ?? "pdo_pgsql", # --dbal
                 "dbname"    =>  $env["DB_NAME"],
                 "user"      =>  $env["DB_USER"],
                 "host"      =>  $env["DB_HOST"],

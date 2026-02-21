@@ -4,24 +4,25 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\Databases\PDODatabase;
 use App\Exceptions\RouteNotFoundException;
 
 class App
 {
-    // private static Database $database;
+    private static PDODatabase $database;
 
     public function __construct(
         protected Router $router,
         protected array $request,
         protected Config $config,
     ) {
-        // static::$database = new Database($config->db ?? [])
+        static::$database = new PDODatabase(config: $config->db ?? []);
     }
 
-    // public static function proxy(): Database
-    // {
-    //     return static::$database;
-    // }
+    public static function proxy(): PDODatabase
+    {
+        return static::$database;
+    }
 
     public function run()
     {
