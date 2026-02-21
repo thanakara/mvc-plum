@@ -7,9 +7,13 @@ namespace App\Controllers;
 use App\View;
 use App\Attributes\Get;
 use App\Attributes\Post;
+use App\Services\PDOAccountService;
 
 class AccountsController
 {
+    public function __construct(
+        private PDOAccountService $accountServicePDO = new PDOAccountService()
+    ) {}
 
     #[Get("/accounts")]
     public function index(): View
@@ -32,33 +36,59 @@ class AccountsController
     #[Post("/accounts")]
     public function store()
     {
-        /*
-        The form is sending application/x-www-form-urlencoded 
-        (or multipart/form-data), not JSON — so php://input gets
-        either an empty string or the raw form-encoded body,
-        and json_decode returns null. We handle both cases,
-        or read from $_POST when it's a form submission:
-        */
         $comesAsJson = str_contains($_SERVER["CONTENT_TYPE"] ?? "", "application/json");
 
-        /*
-        NOTE: using "CONTENT_TYPE" says:
-        if you're sending json, I want json back.
-        To fullfil this, curl must use -H "Content-Type: application/json"
-        Using "HTTP_ACCEPT" says:
-        i want you to return json; and must be specified in curl
-        through -H "Accept: application/json"
-        */
         if ($comesAsJson) {
-            // header tells the client: whatever I send back will be json.
             header("Content-Type: application/json");
-
             $data = json_decode(file_get_contents("php://input"), true);
-            echo json_encode($data, JSON_PRETTY_PRINT);
+
+            try {
+                $this->accountServicePDO->createAccountWithUser(
+                    accountName: $data["account_name"],
+                    region: $data["region"],
+                    email: $data["email"],
+                    isActive: true,
+                );
+                echo json_encode(
+                    ["status" => "__success__"],
+                    JSON_PRETTY_PRINT
+                );
+            } catch (\Throwable $e) {
+                http_response_code(500);
+                echo json_encode(
+                    [
+                        "status" => "__error__",
+                        "message" => $e->getMessage()
+                    ],
+                    JSON_PRETTY_PRINT
+                );
+            }
             return;
         }
 
-        // else render View
+        try {
+            $this->accountServicePDO->createAccountWithUser(
+                accountName: $_POST["account_name"],
+                region: $_POST["region"],
+                email: $_POST["email"],
+                isActive: true,
+            );
+            echo json_encode(
+                ["status" => "__success__"],
+                JSON_PRETTY_PRINT
+            );
+        } catch (\Throwable $e) {
+            echo "<pre>";
+            echo json_encode(
+                [
+                    "status" => "__error__",
+                    "message" => $e->getMessage(),
+                ],
+                JSON_PRETTY_PRINT,
+            );
+            echo "</pre>";
+        }
+
         return View::make(
             view: "accounts/index",
             params: [
