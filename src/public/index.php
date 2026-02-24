@@ -34,8 +34,12 @@ $config = new Config(env: $_ENV);
 $app = new App($router, $request, $config);
 $app->run();
 
-echo "<h4 style='background-color: lightgreen;text-align: center;'>" .
-    "SQL View Model:</h4> <pre>";
+$conn = App::proxy();
+
 $viewModel = new ViewModel();
-print_r($viewModel->select(viewName: "active_users"));
+$result = $viewModel->select(viewName: "active_users");
+
+echo "<h3 style='text-align: center;background-color: lightgreen;'>SQLViewModel --active: </h3>";
+echo "<pre>";
+echo json_encode($result, JSON_PRETTY_PRINT);
 echo "</pre>";

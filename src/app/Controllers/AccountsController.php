@@ -7,12 +7,14 @@ namespace App\Controllers;
 use App\View;
 use App\Attributes\Get;
 use App\Attributes\Post;
-use App\Services\PDOAccountService;
+use App\Services\DBALAccountService;
+// use App\Services\PDOAccountService;
 
 class AccountsController
 {
     public function __construct(
-        private PDOAccountService $accountServicePDO = new PDOAccountService()
+        // private PDOAccountService $accountServicePDO = new PDOAccountService()
+        private DBALAccountService $accountServiceDBAL = new DBALAccountService()
     ) {}
 
     #[Get("/accounts")]
@@ -43,7 +45,7 @@ class AccountsController
             $data = json_decode(file_get_contents("php://input"), true);
 
             try {
-                $this->accountServicePDO->createAccountWithUser(
+                $this->accountServiceDBAL->createAccountWithUser(
                     accountName: $data["account_name"],
                     region: $data["region"],
                     email: $data["email"],
@@ -67,7 +69,7 @@ class AccountsController
         }
 
         try {
-            $this->accountServicePDO->createAccountWithUser(
+            $this->accountServiceDBAL->createAccountWithUser(
                 accountName: $_POST["account_name"],
                 region: $_POST["region"],
                 email: $_POST["email"],

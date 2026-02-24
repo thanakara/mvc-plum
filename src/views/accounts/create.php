@@ -15,7 +15,7 @@
     <p><mark><i>curl -X GET :</i></mark></p>
     <?php
     echo "<pre>";
-    print_r($this->fromGet);
+    echo json_encode($this->fromGet, JSON_PRETTY_PRINT);
     echo "</pre>";
     ?>
     <h2 id="header2">SIGN IN</h2>
@@ -43,6 +43,7 @@
 
         console.log(JSON.stringify(getParams, null, 2));
     </script>
+    <hr>
 </body>
 
 

@@ -17,7 +17,7 @@
         $params = ($method == "GET") ? $this->fromGet : $this->fromPost;
         echo "<p><mark><i>curl -X $method: </i></mark></p>";
         echo "<pre>";
-        print_r($params);
+        echo json_encode($params, JSON_PRETTY_PRINT);
         echo "</pre>";
         ?>
         <script>
@@ -26,6 +26,7 @@
 
             console.log(JSON.stringify(params, null, 2));
         </script>
+        <hr>
     </body>
 
     </html>
