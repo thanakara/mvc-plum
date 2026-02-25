@@ -2,6 +2,11 @@
 
 set -e
 
+BLUE='\033[0;34m'
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NC='\033[0m'
+
 # arg="${1:?[error]: ArgumentRequired. [up/down]}"
 arg=${1:-}
 
@@ -19,7 +24,7 @@ PG_PASSWORD="${DB_PASSWORD}"
 
 arg-logic() {
     if [[ "$arg" != "up" && "$arg" != "down" ]]; then
-        echo "[error]: InvalidArgument. [up/down]" >&2
+        echo -e "${RED}[error]:\tInvalidArgument \tLiteral[up, down]${NC}" >&2
         exit 1
 
     elif [[ "$arg" == "up" ]]; then
@@ -27,15 +32,15 @@ arg-logic() {
         docker compose --env-file ../.env up -d
         # proper health check loop:
         until docker exec $DB_SERVICE pg_isready -U $PG_USER -h $PG_HOST >/dev/null 2>&1; do
-            echo "[debug]: __waiting_for_db__" >&2
+            echo -e "${BLUE}[debug]: \t__waiting_for_db__${NC}" >&2
             sleep 1
         done
-        echo "[info]: __network_up__"
+        echo -e "${GREEN}[info]: \t__network_up__${NC}"
 
     else
         cd "docker"
         docker compose --env-file ../.env down
-        echo "[info]: __network_down__"
+        echo -e "${GREEN}[info]: \t__network_down__${NC}"
     fi
 }
 
