@@ -1,4 +1,21 @@
-const body = require("../../../scripts/requests/template.json");
+// #!/usr/bin/env node
+
+// import body from "../../../scripts/requests/template.json" with { type: "json" }
+import path from "path";
+import fs from "fs/promises";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const __workdir = path.dirname(path.dirname(path.dirname(__dirname)));
+const jsonTemplatePath = path.join(__workdir, "scripts", "requests", "template.json");
+
+let body;
+try {
+    body = await fs.readFile(jsonTemplatePath, "utf-8")
+} catch (error) {
+    if (error.code === "ENOENT") console.log("FileNotFound");
+}
 
 async function postAccount() {
     // containerURL = "http://nginx/accounts";
@@ -10,7 +27,7 @@ async function postAccount() {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(body),
+            body,
         });
 
         if (!response.ok) {
