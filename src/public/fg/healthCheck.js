@@ -9,15 +9,15 @@ async function check() {
         const data = await response.json();
 
         if (response.ok) {
-            console.log(`[${timestamp}] ✅ ${data.status} — database: ${data.checks.database.status}`);
+            console.log(`[${timestamp}] ${data.status} — database: ${data.checks.database.status}`);
         } else {
-            console.error(`[${timestamp}] ❌ ${data.status} — database: ${data.checks.database.status}`);
+            console.error(`[${timestamp}] ${data.status} — database: ${data.checks.database.status}`);
             if (data.checks.database.message) {
                 console.error(`message: ${data.checks.database.message}`);
             }
         }
     } catch (err) {
-        console.error(`[${timestamp}] 💥 Unreachable — ${err.message}`);
+        console.error(`[${timestamp}] unreachable — ${err.message}`);
     }
 }
 
