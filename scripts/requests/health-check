@@ -6,8 +6,8 @@ GREEN='\033[0;32m'
 NC='\033[0m'
 
 
-URL="http://localhost:8000/health"
-# URL="http://nginx/health"
+URL="http://nginx/health"
+# URL="http://localhost:8000/health"
 
 
 TMPFILE=$(mktemp)
