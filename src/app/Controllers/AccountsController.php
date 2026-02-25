@@ -4,18 +4,27 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
+use App\App;
 use App\View;
 use App\Attributes\Get;
 use App\Attributes\Post;
-use App\Services\DBALAccountService;
+use App\Services\ORMAccountService;
+// use App\Services\DBALAccountService;
 // use App\Services\PDOAccountService;
 
 class AccountsController
 {
+    // TODO: need DI Container since Router can handle args in constructor
+    private ORMAccountService $ormAccountService;
+
     public function __construct(
         // private PDOAccountService $accountServicePDO = new PDOAccountService()
-        private DBALAccountService $accountServiceDBAL = new DBALAccountService()
-    ) {}
+        // private DBALAccountService $accountServiceDBAL = new DBALAccountService()
+
+    )
+    {
+        $this->ormAccountService = new ORMAccountService(em: App::emProxy());
+    }
 
     #[Get("/accounts")]
     public function index(): View
@@ -45,7 +54,7 @@ class AccountsController
             $data = json_decode(file_get_contents("php://input"), true);
 
             try {
-                $this->accountServiceDBAL->createAccountWithUser(
+                $this->ormAccountService->createAccountWithUser(
                     accountName: $data["account_name"],
                     region: $data["region"],
                     email: $data["email"],
@@ -69,7 +78,7 @@ class AccountsController
         }
 
         try {
-            $this->accountServiceDBAL->createAccountWithUser(
+            $this->ormAccountService->createAccountWithUser(
                 accountName: $_POST["account_name"],
                 region: $_POST["region"],
                 email: $_POST["email"],
