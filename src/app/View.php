@@ -21,9 +21,6 @@ class View
             throw new RuntimeException("View Not Found {$this->view}");
         }
 
-        // not safe for sensitive information
-        // extract($this->params);
-
         ob_start();
         include $viewPath;
 

@@ -8,6 +8,7 @@ use App\Config;
 use Dotenv\Dotenv;
 use App\Models\ViewModel;
 use App\Controllers\HomeController;
+use App\Controllers\HealthController;
 use App\Controllers\AccountsController;
 
 require_once __DIR__ . "/../vendor/autoload.php";
@@ -20,7 +21,8 @@ $router = new Router;
 $router->registerFromControllerAttrs(
     controllers: [
         HomeController::class,
-        AccountsController::class
+        AccountsController::class,
+        HealthController::class,
     ]
 );
 
@@ -33,13 +35,3 @@ $config = new Config(env: $_ENV);
 
 $app = new App($router, $request, $config);
 $app->run();
-
-$conn = App::proxy();
-
-$viewModel = new ViewModel();
-$result = $viewModel->select(viewName: "active_users");
-
-echo "<h3 style='text-align: center;background-color: lightgreen;'>SQLViewModel --active: </h3>";
-echo "<pre>";
-echo json_encode($result, JSON_PRETTY_PRINT);
-echo "</pre>";

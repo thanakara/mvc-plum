@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NC='\033[0m'
+
+
+URL="http://localhost:8000/health"
+# URL="http://nginx/health"
+
+
+TMPFILE=$(mktemp)
+trap "rm -f $TMPFILE" EXIT
+
+
+curl -s -i $URL -X GET -o "$TMPFILE"
+EXIT_CODE=$?
+
+if [[ $EXIT_CODE -ne 0 ]]; then
+    echo -e "${RED}Error (exit code: $EXIT_CODE)${NC}"
+else
+    echo -e "${GREEN}Connected ${NC}"
+    cat "$TMPFILE"
+fi
