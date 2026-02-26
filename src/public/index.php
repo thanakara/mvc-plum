@@ -6,10 +6,7 @@ use App\App;
 use App\Router;
 use App\Config;
 use Dotenv\Dotenv;
-use Doctrine\ORM\ORMSetup;
-use Doctrine\ORM\EntityManager;
-use Doctrine\DBAL\DriverManager;
-use App\Services\ORMAccountService;
+use App\Container;
 use App\Controllers\HomeController;
 use App\Controllers\HealthController;
 use App\Controllers\AccountsController;
@@ -20,7 +17,9 @@ define("VIEWDIR", __DIR__ . "/../views");
 $dotenv = Dotenv::createImmutable(dirname(__DIR__, levels: 2));
 $dotenv->load();
 
-$router = new Router;
+$container = new Container;
+
+$router = new Router(container: $container);
 $router->registerFromControllerAttrs(
     controllers: [
         HomeController::class,
