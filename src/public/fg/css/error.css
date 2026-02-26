@@ -1,0 +1,108 @@
+/* ─── error.css — 404 page specific styles ──────────────────────────────── */
+
+body {
+    align-items: center;
+    /* vertically centre the 404 card */
+    padding: 40px 24px;
+}
+
+.page {
+    max-width: 520px;
+}
+
+/* Red stripe override */
+.stripe {
+    background: linear-gradient(90deg, var(--red) 0%, #d4705f 100%);
+}
+
+.status-badge {
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    background: var(--red-bg);
+    border: 1px solid var(--red-border);
+    color: var(--red);
+    padding: 2px 8px;
+    border-radius: 2px;
+}
+
+/* Card body */
+.card-body {
+    padding: 40px 36px 36px;
+    text-align: center;
+}
+
+/* Big 404 number with stamp overlay */
+.code {
+    font-family: var(--mono);
+    font-size: 72px;
+    font-weight: 300;
+    color: var(--border-dark);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    margin-bottom: 6px;
+    position: relative;
+    display: inline-block;
+}
+
+.code::after {
+    content: 'NOT FOUND';
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    color: var(--red);
+    border: 2px solid var(--red);
+    border-radius: 4px;
+    opacity: 0.18;
+    transform: rotate(-8deg);
+    pointer-events: none;
+}
+
+.message {
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--ink);
+    margin-top: 16px;
+    margin-bottom: 6px;
+}
+
+.path {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-dim);
+    font-style: italic;
+}
+
+.divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 28px 0 22px;
+}
+
+.hint {
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--ink-mid);
+    line-height: 1.6;
+}
+
+.hint a {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--amber);
+    text-decoration: none;
+    border-bottom: 1px solid var(--amber-border);
+    padding-bottom: 1px;
+    transition: border-color 0.15s;
+}
+
+.hint a:hover {
+    border-color: var(--amber);
+}

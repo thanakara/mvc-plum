@@ -1,0 +1,324 @@
+/* ─── base.css — shared parchment theme ─────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400&family=IBM+Plex+Sans:wght@300;400;500&display=swap');
+
+:root {
+    --bg: #f5f2eb;
+    --bg-card: #fdfaf4;
+    --border: #ddd9ce;
+    --border-dark: #c8c3b5;
+    --ink: #1a1914;
+    --ink-mid: #5a5649;
+    --ink-dim: #9e9889;
+    --amber: #c97c10;
+    --amber-bg: #fef3e0;
+    --amber-border: #f0c060;
+    --amber-hover: #a86208;
+    --green: #2d7a4f;
+    --green-bg: #eaf5ee;
+    --green-border: #90cca8;
+    --blue: #2255aa;
+    --red: #b53a2f;
+    --red-bg: #fdf0ee;
+    --red-border: #e8b0a8;
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'IBM Plex Sans', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 60px 24px 80px;
+}
+
+/* Grid texture */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity: 0.35;
+    pointer-events: none;
+}
+
+/* Page wrapper */
+.page {
+    width: 100%;
+    max-width: 680px;
+    position: relative;
+    z-index: 1;
+    animation: rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes rise {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ── Top bar ── */
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 36px;
+}
+
+.route {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    color: var(--ink-dim);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.method-badge {
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    background: var(--amber-bg);
+    border: 1px solid var(--amber-border);
+    color: var(--amber);
+    padding: 2px 8px;
+    border-radius: 2px;
+}
+
+.timestamp {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--ink-dim);
+}
+
+/* ── Title block ── */
+.title-block {
+    margin-bottom: 28px;
+}
+
+.eyebrow {
+    font-family: var(--mono);
+    font-size: 9px;
+    font-style: italic;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    margin-bottom: 6px;
+}
+
+h1 {
+    font-family: var(--mono);
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+}
+
+h1 .at {
+    color: var(--amber);
+}
+
+h1 .seg {
+    color: var(--ink-mid);
+}
+
+.subtitle {
+    margin-top: 6px;
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--ink-mid);
+}
+
+/* ── Curl hint bar ── */
+.curl-hint {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--ink);
+    border-radius: 5px;
+    padding: 11px 16px;
+    margin-bottom: 24px;
+    overflow-x: auto;
+}
+
+.curl-hint .prompt {
+    color: var(--amber);
+    font-family: var(--mono);
+    font-size: 11px;
+    white-space: nowrap;
+    user-select: none;
+}
+
+.curl-hint code {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: #c8ffc8;
+    white-space: nowrap;
+}
+
+.curl-hint .flag {
+    color: #ffd080;
+}
+
+.curl-hint .url {
+    color: #80d8ff;
+}
+
+.curl-hint .data {
+    color: #c8ffc8;
+}
+
+/* ── Card ── */
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-dark);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
+    margin-bottom: 16px;
+}
+
+.stripe {
+    height: 3px;
+    background: linear-gradient(90deg, var(--amber) 0%, #e8a040 100%);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 18px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+}
+
+.card-title {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-mid);
+}
+
+.param-count {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--ink-dim);
+}
+
+.param-count strong {
+    color: var(--ink);
+    font-weight: 500;
+}
+
+/* ── JSON body ── */
+.json-body {
+    padding: 20px 22px;
+    overflow-x: auto;
+}
+
+pre {
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.75;
+    color: var(--ink);
+    white-space: pre;
+}
+
+/* Syntax colours */
+.json-brace {
+    color: var(--ink-mid);
+}
+
+.json-key {
+    color: var(--blue);
+}
+
+.json-str {
+    color: var(--green);
+}
+
+.json-num {
+    color: var(--amber);
+}
+
+.json-bool {
+    color: var(--red);
+    font-style: italic;
+}
+
+.json-null {
+    color: var(--ink-dim);
+    font-style: italic;
+}
+
+/* ── Empty states ── */
+.empty-state {
+    padding: 36px 22px;
+    text-align: center;
+}
+
+.empty-icon {
+    font-size: 28px;
+    margin-bottom: 10px;
+    opacity: 0.3;
+}
+
+.empty-text {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-dim);
+}
+
+.empty-hint {
+    margin-top: 6px;
+    font-size: 11px;
+    color: var(--ink-dim);
+}
+
+.empty-hint code {
+    font-family: var(--mono);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 1px 5px;
+    border-radius: 2px;
+}
+
+.empty-inline {
+    padding: 14px 18px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-dim);
+    font-style: italic;
+}
+
+/* ── Footer ── */
+.footer {
+    margin-top: 16px;
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--ink-dim);
+}
