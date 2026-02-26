@@ -39,9 +39,9 @@
         <div class="curl-hint">
             <span class="prompt">$</span>
             <?php if ($isPost): ?>
-                <code>curl <span class="flag">-X POST</span> <span class="url">"http://nginx/accounts"</span><?php if (!$isEmpty): ?> <span class="flag">\<br>&nbsp;&nbsp;&nbsp;-d</span> <span class="data">'<?= htmlspecialchars(http_build_query($params)) ?>'</span><?php endif; ?></code>
+                <code>curl <span class="flag">-X POST</span> <span class="url">"http://nginx/accounts"</span></code>
             <?php else: ?>
-                <code>curl <span class="flag">-X GET</span> <span class="url">"http://nginx/accounts<?= !$isEmpty ? '?' . htmlspecialchars(http_build_query($params)) : '' ?>"</span></code>
+                <code>curl <span class="flag">-X GET</span> <span class="url">"http://nginx/accounts"</span></code>
             <?php endif; ?>
         </div>
 

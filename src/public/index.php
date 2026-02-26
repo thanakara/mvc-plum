@@ -13,7 +13,7 @@ use App\Controllers\AccountsController;
 use App\Databases\EntityManagerFactory;
 use Doctrine\ORM\EntityManagerInterface;
 
-require_once __DIR__ . "/../vendor/autoload.php";
+require_once __DIR__ . "/../../vendor/autoload.php";
 define("VIEWDIR", __DIR__ . "/../views");
 
 $dotenv = Dotenv::createImmutable(dirname(__DIR__, levels: 2));

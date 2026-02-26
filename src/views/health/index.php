@@ -4,7 +4,7 @@ use App\Config;
 use Dotenv\Dotenv;
 use Doctrine\DBAL\DriverManager;
 
-require_once __DIR__ . "/../../vendor/autoload.php";
+require_once __DIR__ . "/../../../vendor/autoload.php";
 
 $dotenv = Dotenv::createImmutable(dirname(__DIR__, levels: 3));
 $dotenv->load();
