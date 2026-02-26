@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\Container;
 use ReflectionClass;
 use ReflectionAttribute;
 use App\Attributes\Route;
@@ -12,6 +13,11 @@ use App\Exceptions\RouteNotFoundException;
 class Router
 {
     private array $allRoutes;
+
+    public function __construct(private Container $container)
+    {
+        // ...
+    }
 
     public function registerFromControllerAttrs(array $controllers)
     {
@@ -83,11 +89,17 @@ class Router
         }
 
         if (is_array($action)) {
-            // $action = [key($action), current($action)];
             [$cls, $method] = $action;
 
             if (class_exists($cls)) {
-                $clsInstance = new $cls();
+                /*
+                $clsInstance = new $cls;
+                ----------------------------
+                Now we will use the container to resolve the dependencies
+                of the controller class, instead of directly instantiating it.
+                ----------------------------
+                */
+                $clsInstance = $this->container->get($cls);
 
                 if (method_exists($clsInstance, $method)) {
                     return call_user_func_array([$clsInstance, $method], []);

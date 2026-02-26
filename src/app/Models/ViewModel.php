@@ -7,10 +7,6 @@ namespace App\Models;
 use App\Model;
 use InvalidArgumentException;
 
-/**
- * Extends ABC Model which initializes a PDODatabase proxy
- * The property is under: $pdoDB
- */
 class ViewModel extends Model
 {
     /**
