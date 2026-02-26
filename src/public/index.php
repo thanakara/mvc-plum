@@ -10,6 +10,8 @@ use App\Container;
 use App\Controllers\HomeController;
 use App\Controllers\HealthController;
 use App\Controllers\AccountsController;
+use App\Databases\EntityManagerFactory;
+use Doctrine\ORM\EntityManagerInterface;
 
 require_once __DIR__ . "/../vendor/autoload.php";
 define("VIEWDIR", __DIR__ . "/../views");
@@ -17,7 +19,19 @@ define("VIEWDIR", __DIR__ . "/../views");
 $dotenv = Dotenv::createImmutable(dirname(__DIR__, levels: 2));
 $dotenv->load();
 
-$container = new Container;
+/*
+Config instantiated BEFORE the container,
+so EntityManagerInterface binding can close over it cleanly.
+The Container can't resolve EntityManagerInterface on its own since
+it's an interface - it needs an explicit binding, which we provide here.
+*/
+$config = new Config(env: $_ENV);
+
+$container = new Container();
+$container->bind(
+    id: EntityManagerInterface::class,
+    concrete: fn() => EntityManagerFactory::create(config: $config->db ?? [])
+);
 
 $router = new Router(container: $container);
 $router->registerFromControllerAttrs(
@@ -32,8 +46,6 @@ $request = [
     "uri"     =>  $_SERVER["REQUEST_URI"],
     "method"  =>  $_SERVER["REQUEST_METHOD"],
 ];
-
-$config = new Config(env: $_ENV);
 
 $app = new App($router, $request, $config);
 $app->run();

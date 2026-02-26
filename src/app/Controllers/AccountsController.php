@@ -15,16 +15,12 @@ use App\Services\ORMAccountService;
 class AccountsController
 {
     // TODO: need DI Container since Router can handle args in constructor
-    private ORMAccountService $ormAccountService;
 
     public function __construct(
         // private PDOAccountService $accountServicePDO = new PDOAccountService()
         // private DBALAccountService $accountServiceDBAL = new DBALAccountService()
-
-    )
-    {
-        $this->ormAccountService = new ORMAccountService(em: App::emProxy());
-    }
+        private ORMAccountService $ormAccountService
+    ) {}
 
     #[Get("/accounts")]
     public function index(): View
@@ -45,59 +41,39 @@ class AccountsController
     }
 
     #[Post("/accounts")]
-    public function store()
+    public function store(): mixed
     {
         $comesAsJson = str_contains($_SERVER["CONTENT_TYPE"] ?? "", "application/json");
 
+        $data = $comesAsJson
+            ? json_decode(file_get_contents("php://input"), true)
+            : $_POST;
+
         if ($comesAsJson) {
             header("Content-Type: application/json");
-            $data = json_decode(file_get_contents("php://input"), true);
-
-            try {
-                $this->ormAccountService->createAccountWithUser(
-                    accountName: $data["account_name"],
-                    region: $data["region"],
-                    email: $data["email"],
-                    isActive: true,
-                );
-                echo json_encode(
-                    ["status" => "__success__"],
-                    JSON_PRETTY_PRINT
-                );
-            } catch (\Throwable $e) {
-                http_response_code(500);
-                echo json_encode(
-                    [
-                        "status" => "__error__",
-                        "message" => $e->getMessage()
-                    ],
-                    JSON_PRETTY_PRINT
-                );
-            }
-            return;
         }
 
         try {
             $this->ormAccountService->createAccountWithUser(
-                accountName: $_POST["account_name"],
-                region: $_POST["region"],
-                email: $_POST["email"],
+                email: $data["email"],
                 isActive: true,
+                accountName: $data["account_name"],
+                region: $data["region"],
             );
-            echo json_encode(
-                ["status" => "__success__"],
-                JSON_PRETTY_PRINT
-            );
+
+            $response = ["status" => "__success__"];
+            http_response_code(201);
         } catch (\Throwable $e) {
-            echo "<pre>";
-            echo json_encode(
-                [
-                    "status" => "__error__",
-                    "message" => $e->getMessage(),
-                ],
-                JSON_PRETTY_PRINT,
-            );
-            echo "</pre>";
+            $response = [
+                "status"  => "__error__",
+                "message" => $e->getMessage(),
+            ];
+            http_response_code(500);
+        }
+
+        if ($comesAsJson) {
+            echo json_encode($response, JSON_PRETTY_PRINT);
+            return null;
         }
 
         return View::make(

@@ -314,12 +314,12 @@
 
         <div class="curl-hint">
             <span class="prompt">$</span>
-            <code>curl -X GET "http://nginx/?<?= htmlspecialchars(http_build_query($this->fromGet ?: ['key' => 'value'])) ?>"</code>
+            <code>curl -X GET "http://nginx/</code>
         </div>
 
         <div class="card">
             <div class="card-header">
-                <span class="card-title">$_GET params</span>
+                <span class="card-title">$_GET</span>
                 <span class="param-count">
                     <strong id="count">0</strong> param(s)
                 </span>
