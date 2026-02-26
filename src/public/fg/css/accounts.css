@@ -1,0 +1,27 @@
+/* ─── accounts.css — method-aware theming for accounts/index ────────────── */
+
+body.method-get {
+    --method-color: var(--amber);
+    --method-bg: var(--amber-bg);
+    --method-border: var(--amber-border);
+    --stripe-color: var(--amber);
+}
+
+body.method-post {
+    --method-color: var(--green);
+    --method-bg: var(--green-bg);
+    --method-border: var(--green-border);
+    --stripe-color: var(--green);
+}
+
+.method-badge {
+    background: var(--method-bg);
+    border-color: var(--method-border);
+    color: var(--method-color);
+    transition: all 0.3s;
+}
+
+.stripe {
+    background: var(--stripe-color, var(--amber));
+    transition: background 0.3s;
+}
