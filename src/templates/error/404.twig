@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 — Not Found</title>
+    <link rel="stylesheet" href="/fg/css/base.css">
+    <link rel="stylesheet" href="/fg/css/error.css">
+</head>
+
+<body>
+    <div class="page">
+        <div class="card">
+            <div class="stripe"></div>
+            <div class="card-header">
+                <span class="card-title">HTTP Response</span>
+                <span class="status-badge">404</span>
+            </div>
+            <div class="card-body">
+                <div class="code">404</div>
+                <div class="message">Page Not Found</div>
+                <div class="path">{{ path }}</div>
+                <hr class="divider">
+                <div class="hint">
+                    The route you requested doesn't exist.<br>
+                    Head back to <a href="/">@index</a> or check your URL.
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <span>plum · error/404</span>
+            <span id="ts"></span>
+        </div>
+    </div>
+
+    <script src="/fg/js/utils.js"></script>
+    <script>
+        renderTimestamps(['#ts']);
+    </script>
+</body>
+
+</html>

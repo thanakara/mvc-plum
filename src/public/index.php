@@ -15,6 +15,7 @@ use Doctrine\ORM\EntityManagerInterface;
 
 require_once __DIR__ . "/../../vendor/autoload.php";
 define("VIEWDIR", __DIR__ . "/../views");
+define("TEMPLATESDIR", __DIR__ . "/../templates");
 
 $dotenv = Dotenv::createImmutable(dirname(__DIR__, levels: 2));
 $dotenv->load();

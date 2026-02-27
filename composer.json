@@ -5,7 +5,8 @@
         "doctrine/dbal": "^4.4",
         "doctrine/orm": "^3.6",
         "symfony/cache": "^7.4",
-        "psr/container": "^2.0"
+        "psr/container": "^2.0",
+        "twig/twig": "^3.23"
     },
     "autoload": {
         "psr-4": {
