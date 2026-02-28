@@ -1,34 +1,37 @@
 # no version needed; auto-derived
 
 services:
-  app:
+  php82-fpm:
     build:
       context: . # better that "" or ./
       dockerfile: Dockerfile
+    container_name: php82-fpm-container
     restart: always
     working_dir: /var/www # no trailling /
     volumes:
       - ../:/var/www
     networks:
-      - appnet
+      - nginx-php-pg-network
     depends_on:
-      - db
+      - postgres
 
   nginx:
     image: nginx:alpine
+    container_name: nginx-container
     restart: always
     depends_on:
-      - app
+      - php82-fpm
     ports:
       - "8000:80" # using strings for "<port-mapping>"
     volumes:
       - ../:/var/www
       - ./nginx:/etc/nginx/conf.d
     networks:
-      - appnet
+      - nginx-php-pg-network
     
-  db:
+  postgres:
     image: postgres:16-alpine
+    container_name: postgres-container
     restart: always
     environment:
     # use --env-file flag on docker compose
@@ -41,12 +44,12 @@ services:
     ports:
       - "5432:5432" # optional: expose to host
     networks:
-      - appnet
+      - nginx-php-pg-network
 
 
 # adding network is best practice
 networks:
-  appnet:
+  nginx-php-pg-network:
 
 # if the DB volume was NAMED, like: "pgdata" for example,
 # we need a last section of:

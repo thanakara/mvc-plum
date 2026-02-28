@@ -2,6 +2,9 @@
 
 declare(strict_types=1);
 
+require_once __DIR__ . "/../../vendor/autoload.php";
+define("VIEWDIR", __DIR__ . "/../views");
+
 use App\App;
 use App\Router;
 use App\Config;
@@ -12,9 +15,6 @@ use App\Controllers\HealthController;
 use App\Controllers\AccountsController;
 use App\Databases\EntityManagerFactory;
 use Doctrine\ORM\EntityManagerInterface;
-
-require_once __DIR__ . "/../../vendor/autoload.php";
-define("VIEWDIR", __DIR__ . "/../views");
 
 $dotenv = Dotenv::createImmutable(dirname(__DIR__, levels: 2));
 $dotenv->load();
