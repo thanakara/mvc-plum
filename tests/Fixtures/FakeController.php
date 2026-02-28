@@ -12,13 +12,13 @@ class FakeController
     #[Get("/fake")]
     public function index(): string
     {
-        return "fake.twig";
+        return "fake.html.twig";
     }
 
     #[Post("/fake/store")]
     public function store(): string
     {
-        return "store.twig";
+        return "store.html.twig";
     }
 
     public function notARoute(): string
