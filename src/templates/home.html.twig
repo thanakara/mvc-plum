@@ -1,13 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html.twig" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@index</title>
-    <link rel="stylesheet" href="/fg/css/base.css">
-</head>
+{% block title %}Home \ MVC-plum{% endblock %}
+{% block stylesheets %}{{ parent() }}{% endblock %}
 
+{% block body %}
 <body>
     <div class="page">
 
@@ -21,7 +17,7 @@
 
         <div class="title-block">
             <div class="eyebrow">route handler</div>
-            <h1><span class="at">@</span>index</h1>
+            <h1><span class="at">@</span>home</h1>
         </div>
 
         <div class="curl-hint">
@@ -48,23 +44,23 @@
         </div>
 
         <div class="footer">
-            <span>plum · index</span>
+            <span>MVC-plum · Home</span>
             <span id="footer-ts"></span>
         </div>
 
     </div>
+{% endblock %}
 
-    <script src="/fg/js/utils.js"></script>
+{% block scripts %}
+{{ parent() }}
     <script>
         const getParams = {{ fromGet | json_encode | raw }};
 
         renderTimestamps();
-        document.getElementById('count').textContent = Object.keys(getParams).length;
-        renderJson(getParams, 'json-output');
+        document.getElementById("count").textContent = Object.keys(getParams).length;
+        renderJson(getParams, "json-output");
 
-        console.log('%c@index GET params', 'font-weight:bold;color:#c97c10');
+        console.log("%c@index GET params", "font-weight:bold;color:#c97c10");
         console.log(JSON.stringify(getParams, null, 2));
     </script>
-</body>
-
-</html>
+{% endblock %}

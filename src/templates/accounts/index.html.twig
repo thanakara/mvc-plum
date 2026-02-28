@@ -1,17 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@accounts/index</title>
-    <link rel="stylesheet" href="/fg/css/base.css">
+{% extends "base.html.twig" %}
+{% block title %}Accounts \ MVC-plum{% endblock %}
+{% block stysheets %}
+    {{ parent() }}
     <link rel="stylesheet" href="/fg/css/accounts.css">
-</head>
+{% endblock %}
 
+{% block body %}
 <body>
     <script>
-        document.body.classList.add('method-{{ method | lower }}');
+        document.body.classList.add("method-{{ method | lower }}");
     </script>
 
     <div class="page">
@@ -26,7 +23,7 @@
 
         <div class="title-block">
             <div class="eyebrow">route handler</div>
-            <h1><span class="at">@</span><span class="seg">accounts/</span>index</h1>
+            <h1><span class="at">@</span><span class="seg">Accounts</span></h1>
             <div class="subtitle">Incoming {{ method }} parameters</div>
         </div>
 
@@ -42,7 +39,7 @@
         <div class="card">
             <div class="stripe"></div>
             <div class="card-header">
-                <span class="card-title">{{ isPost ? '$_POST' : '$_GET' }} params</span>
+                <span class="card-title">{{ isPost ? "$_POST" : "$_GET" }} params</span>
                 <span class="param-count"><strong>{{ params | length }}</strong> param(s)</span>
             </div>
 
@@ -59,23 +56,22 @@
         </div>
 
         <div class="footer">
-            <span>plum · accounts/index</span>
+            <span>MVC-plum · Accounts</span>
             <span id="footer-ts"></span>
         </div>
 
     </div>
-
-    <script src="/fg/js/utils.js"></script>
+{% endblock %}
+{% block scripts %}
+    {{ parent() }}
     <script>
         const params = {{ params | json_encode | raw }};
         const method = {{ method | json_encode | raw }};
 
         renderTimestamps();
-        renderJson(params, 'json-output');
+        renderJson(params, "json-output");
 
-        console.log(`%c@accounts/index — ${method} params`, 'font-weight:bold;color:#c97c10');
+        console.log(`%c@accounts/index — ${method} params:`, "font-weight:bold;color:#c97c10");
         console.log(JSON.stringify(params, null, 2));
     </script>
-</body>
-
-</html>
+{% endblock %}

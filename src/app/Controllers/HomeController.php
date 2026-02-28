@@ -16,7 +16,7 @@ class HomeController
     public function index(): TwigView
     {
         return TwigView::make(
-            view: "index",
+            view: "home.html",
             params: ["fromGet" => $_GET]
         );
     }
@@ -27,7 +27,7 @@ class HomeController
         $activeUsers = $this->viewModel->select(viewName: "active_users");
 
         return TwigView::make(
-            view: "active",
+            view: "active.html",
             params: [
                 "activeUsers" => $activeUsers,
                 "regionCount" => count(array_unique(array_column($activeUsers, "region"))),

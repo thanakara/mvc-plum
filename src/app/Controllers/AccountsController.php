@@ -28,7 +28,7 @@ class AccountsController
         $params = $method === "GET" ? $_GET : $_POST;
 
         return TwigView::make(
-            view: "accounts/index",
+            view: "accounts/index.html",
             params: [
                 "method" => $method,
                 "params" => $params,
@@ -42,7 +42,7 @@ class AccountsController
     public function create(): TwigView
     {
         return TwigView::make(
-            view: "accounts/create",
+            view: "accounts/create.html",
             params: ["fromGet" => $_GET]
         );
     }
@@ -84,7 +84,7 @@ class AccountsController
         }
 
         return TwigView::make(
-            view: "accounts/index",
+            view: "accounts/index.html",
             params: [
                 "method" => "POST",
                 "params" => $_POST,

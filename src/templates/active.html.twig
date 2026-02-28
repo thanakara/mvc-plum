@@ -1,13 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@/active</title>
+{% extends "base.html.twig" %}
+{% block title %}Active \ MVC-plum{% endblock %}
+{% block stylesheets %}
     <link rel="stylesheet" href="/fg/css/active.css">
-</head>
+{% endblock %}
 
+{% block body %}
 <body>
     <div class="container">
 
@@ -71,10 +68,9 @@
         </div>
 
         <div class="footer">
-            {{ "now" | date("Y-m-d H:i:s") }} UTC &nbsp;·&nbsp; plum schema
+            {{ "now" | date("Y-m-d H:i:s") }} UTC &nbsp;·&nbsp; MVC-plum · View
         </div>
 
     </div>
 </body>
-
-</html>
+{% endblock %}

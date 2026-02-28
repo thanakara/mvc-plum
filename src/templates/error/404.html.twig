@@ -1,13 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 — Not Found</title>
-    <link rel="stylesheet" href="/fg/css/base.css">
+{% extends "base.html.twig" %}
+{% block title %}404 \ MVC-plum{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
     <link rel="stylesheet" href="/fg/css/error.css">
-</head>
+{% endblock %}
+
+{% block body %}
 
 <body>
     <div class="page">
@@ -24,21 +22,21 @@
                 <hr class="divider">
                 <div class="hint">
                     The route you requested doesn't exist.<br>
-                    Head back to <a href="/">@index</a> or check your URL.
+                    Head back to <a href="/">@home</a> or check your URL.
                 </div>
             </div>
         </div>
 
         <div class="footer">
-            <span>plum · error/404</span>
+            <span>MVC-plum · 404</span>
             <span id="ts"></span>
         </div>
     </div>
+{% endblock %}
 
-    <script src="/fg/js/utils.js"></script>
+{% block scripts %}
+    {{ parent() }}
     <script>
         renderTimestamps(['#ts']);
     </script>
-</body>
-
-</html>
+{% endblock %}

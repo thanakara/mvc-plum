@@ -1,12 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@accounts/create</title>
-    <link rel="stylesheet" href="/fg/css/base.css">
+{% extends "base.html.twig" %}
+{% block title %}Accounts·Create \ MVC-plum{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
     <link rel="stylesheet" href="/fg/css/create.css">
-</head>
+{% endblock %}
+
+{% block body %}
 <body>
     <div class="page">
 
@@ -20,7 +19,7 @@
 
         <div class="title-block">
             <div class="eyebrow">route handler</div>
-            <h1><span class="at">@</span><span class="seg">accounts/</span>create</h1>
+            <h1><span class="at">@</span><span class="seg">Accounts·</span>Create</h1>
             <div class="subtitle">Create a new account</div>
         </div>
 
@@ -80,21 +79,22 @@
         </div>
 
         <div class="footer">
-            <span>plum · accounts/create</span>
+            <span>MVC-plum · Accounts·Create</span>
             <span id="footer-ts"></span>
         </div>
 
     </div>
+{% endblock %}
 
-    <script src="/fg/js/utils.js"></script>
+{% block scripts %}
+    {{ parent() }}
     <script>
         const getParams = {{ fromGet | json_encode | raw }};
 
         renderTimestamps();
-        renderJson(getParams, 'get-json');
+        renderJson(getParams, "get-json");
 
-        console.log('%c@accounts/create GET params', 'font-weight:bold;color:#c97c10');
+        console.log("%c@accounts/create GET params:", "font-weight:bold;color:#c97c10");
         console.log(JSON.stringify(getParams, null, 2));
     </script>
-</body>
-</html>
+{% endblock %}
