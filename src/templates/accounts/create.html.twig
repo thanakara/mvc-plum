@@ -1,0 +1,100 @@
+{% extends "base.html.twig" %}
+{% block title %}Accounts·Create \ MVC-plum{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="/fg/css/create.css">
+{% endblock %}
+
+{% block body %}
+<body>
+    <div class="page">
+
+        <div class="topbar">
+            <div class="route">
+                <span class="method-badge">GET</span>
+                /accounts/create
+            </div>
+            <div class="timestamp" id="ts"></div>
+        </div>
+
+        <div class="title-block">
+            <div class="eyebrow">route handler</div>
+            <h1><span class="at">@</span><span class="seg">Accounts·</span>Create</h1>
+            <div class="subtitle">Create a new account</div>
+        </div>
+
+        <div class="card params-card">
+            <div class="card-header">
+                <span class="card-title">$_GET</span>
+                <span class="param-count"><strong>{{ fromGet | length }}</strong> param(s)</span>
+            </div>
+            {% if not fromGet %}
+                <div class="empty-inline">∅ &nbsp;no GET parameters</div>
+            {% else %}
+                <div class="json-body">
+                    <pre id="get-json"></pre>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="card">
+            <div class="stripe"></div>
+            <div class="card-header">
+                <span class="card-title">New Account</span>
+                <span class="post-badge">POST /accounts</span>
+            </div>
+            <div class="form-body">
+                <form action="/accounts" method="post">
+
+                    <div class="field-row">
+                        <div class="field">
+                            <label for="account_name">account_name</label>
+                            <input type="text" id="account_name" name="account_name" placeholder="IGN" required>
+                        </div>
+                        <div class="field">
+                            <label for="region">region</label>
+                            <div class="select-wrap">
+                                <select id="region" name="region" required>
+                                    <option value="">— select —</option>
+                                    <option value="EU">EU</option>
+                                    <option value="EUW">EUW</option>
+                                    <option value="NA">NA</option>
+                                    <option value="KR">KR</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label for="email">email</label>
+                        <input type="text" id="email" name="email" placeholder="a@b.com" required>
+                    </div>
+
+                    <div class="submit-row">
+                        <button type="submit">Submit →</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+        <div class="footer">
+            <span>MVC-plum · Accounts·Create</span>
+            <span id="footer-ts"></span>
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script>
+        const getParams = {{ fromGet | json_encode | raw }};
+
+        renderTimestamps();
+        renderJson(getParams, "get-json");
+
+        console.log("%c@accounts/create GET params:", "font-weight:bold;color:#c97c10");
+        console.log(JSON.stringify(getParams, null, 2));
+    </script>
+{% endblock %}

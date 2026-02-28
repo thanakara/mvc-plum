@@ -1,0 +1,77 @@
+{% extends "base.html.twig" %}
+{% block title %}Accounts \ MVC-plum{% endblock %}
+{% block stysheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="/fg/css/accounts.css">
+{% endblock %}
+
+{% block body %}
+<body>
+    <script>
+        document.body.classList.add("method-{{ method | lower }}");
+    </script>
+
+    <div class="page">
+
+        <div class="topbar">
+            <div class="route">
+                <span class="method-badge">{{ method }}</span>
+                /accounts
+            </div>
+            <div class="timestamp" id="ts"></div>
+        </div>
+
+        <div class="title-block">
+            <div class="eyebrow">route handler</div>
+            <h1><span class="at">@</span><span class="seg">Accounts</span></h1>
+            <div class="subtitle">Incoming {{ method }} parameters</div>
+        </div>
+
+        <div class="curl-hint">
+            <span class="prompt">$</span>
+            {% if isPost %}
+                <code>curl <span class="flag">-X POST</span> <span class="url">"http://nginx/accounts"</span></code>
+            {% else %}
+                <code>curl <span class="flag">-X GET</span> <span class="url">"http://nginx/accounts"</span></code>
+            {% endif %}
+        </div>
+
+        <div class="card">
+            <div class="stripe"></div>
+            <div class="card-header">
+                <span class="card-title">{{ isPost ? "$_POST" : "$_GET" }} params</span>
+                <span class="param-count"><strong>{{ params | length }}</strong> param(s)</span>
+            </div>
+
+            {% if isEmpty %}
+                <div class="empty-state">
+                    <div class="empty-icon">∅</div>
+                    <div class="empty-text">No {{ method }} parameters</div>
+                </div>
+            {% else %}
+                <div class="json-body">
+                    <pre id="json-output"></pre>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="footer">
+            <span>MVC-plum · Accounts</span>
+            <span id="footer-ts"></span>
+        </div>
+
+    </div>
+{% endblock %}
+{% block scripts %}
+    {{ parent() }}
+    <script>
+        const params = {{ params | json_encode | raw }};
+        const method = {{ method | json_encode | raw }};
+
+        renderTimestamps();
+        renderJson(params, "json-output");
+
+        console.log(`%c@accounts/index — ${method} params:`, "font-weight:bold;color:#c97c10");
+        console.log(JSON.stringify(params, null, 2));
+    </script>
+{% endblock %}

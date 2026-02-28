@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
-use App\App;
-use App\View;
+use App\TwigView;
 use App\Attributes\Get;
 use App\Attributes\Post;
 use App\Services\ORMAccountService;
@@ -23,19 +22,27 @@ class AccountsController
     ) {}
 
     #[Get("/accounts")]
-    public function index(): View
+    public function index(): TwigView
     {
-        return View::make(
-            view: "accounts/index",
-            params: ["fromGet" => $_GET]
+        $method = $_SERVER["REQUEST_METHOD"];
+        $params = $method === "GET" ? $_GET : $_POST;
+
+        return TwigView::make(
+            view: "accounts/index.html",
+            params: [
+                "method" => $method,
+                "params" => $params,
+                "isPost" => $method === "POST",
+                "isEmpty" => empty($params),
+            ]
         );
     }
 
     #[Get("/accounts/create")]
-    public function create(): View
+    public function create(): TwigView
     {
-        return View::make(
-            view: "accounts/create",
+        return TwigView::make(
+            view: "accounts/create.html",
             params: ["fromGet" => $_GET]
         );
     }
@@ -76,11 +83,13 @@ class AccountsController
             return null;
         }
 
-        return View::make(
-            view: "accounts/index",
+        return TwigView::make(
+            view: "accounts/index.html",
             params: [
-                "fromGet"  => $_GET,
-                "fromPost" => $_POST,
+                "method" => "POST",
+                "params" => $_POST,
+                "isPost" => true,
+                "isEmpty" => empty($_POST),
             ]
         );
     }

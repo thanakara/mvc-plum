@@ -36,7 +36,10 @@ class App
             );
         } catch (RouteNotFoundException) {
             http_response_code(404);
-            echo View::make(view: "error/404");
+            echo TwigView::make(
+                view: "error/404.html",
+                params: ["path" => $_SERVER["REQUEST_URI"]]
+            );
         }
     }
 }
