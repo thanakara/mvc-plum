@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 require_once __DIR__ . "/../../vendor/autoload.php";
 define("VIEWDIR", __DIR__ . "/../views");
+define("TEMPLATESDIR", dirname(VIEWDIR) . "/templates");
 
 use App\App;
 use App\Router;
@@ -11,10 +12,14 @@ use App\Config;
 use Dotenv\Dotenv;
 use App\Container;
 use App\Controllers\HomeController;
+use App\Controllers\CurlController;
 use App\Controllers\HealthController;
 use App\Controllers\AccountsController;
 use App\Databases\EntityManagerFactory;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Contracts\EmailValidationInterface;
+// use App\Services\Emailable\GuzzleEmailValidationService as EmailableEmailValidationService;
+use App\Services\AbstractApi\GuzzleEmailValidationService as AbstractEmailValidationService;
 
 $dotenv = Dotenv::createImmutable(dirname(__DIR__, levels: 2));
 $dotenv->load();
@@ -30,7 +35,21 @@ $config = new Config(env: $_ENV);
 $container = new Container();
 $container->bind(
     id: EntityManagerInterface::class,
-    concrete: fn() => EntityManagerFactory::create(config: $config->db ?? [])
+    concrete: fn() => EntityManagerFactory::create(
+        config: $config->db ?? []
+    )
+);
+/*
+Bind the EmailValidationInterface since it has dependencies on its own.
+We implement an interface so that there is a fallback service if one fails.
+The two email services are: Emailable Validation && Abstact Email Validation.
+---Both use Guzzle's Client and the same retry logic---
+*/
+$container->bind(
+    id: EmailValidationInterface::class,
+    concrete: fn() => new AbstractEmailValidationService(
+        apiKey: $config->apiKeys["abstract"]
+    )
 );
 
 $router = new Router(container: $container);
@@ -39,6 +58,7 @@ $router->registerFromControllerAttrs(
         HomeController::class,
         AccountsController::class,
         HealthController::class,
+        CurlController::class,
     ]
 );
 
