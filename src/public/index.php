@@ -15,42 +15,19 @@ use App\Controllers\HomeController;
 use App\Controllers\CurlController;
 use App\Controllers\HealthController;
 use App\Controllers\AccountsController;
-use App\Databases\EntityManagerFactory;
-use Doctrine\ORM\EntityManagerInterface;
-use App\Contracts\EmailValidationInterface;
-// use App\Services\Emailable\GuzzleEmailValidationService as EmailableEmailValidationService;
-use App\Services\AbstractApi\GuzzleEmailValidationService as AbstractEmailValidationService;
 
 $dotenv = Dotenv::createImmutable(dirname(__DIR__, levels: 2));
 $dotenv->load();
 
 /*
 Config instantiated BEFORE the container,
-so EntityManagerInterface binding can close over it cleanly.
-The Container can't resolve EntityManagerInterface on its own since
-it's an interface - it needs an explicit binding, which we provide here.
+so interfaces binding can close over it cleanly.
+The Container can't resolve on its own since it's interfaces
+- it needs an explicit binding, which is provided in App's contructor:
 */
 $config = new Config(env: $_ENV);
 
 $container = new Container();
-$container->bind(
-    id: EntityManagerInterface::class,
-    concrete: fn() => EntityManagerFactory::create(
-        config: $config->db ?? []
-    )
-);
-/*
-Bind the EmailValidationInterface since it has dependencies on its own.
-We implement an interface so that there is a fallback service if one fails.
-The two email services are: Emailable Validation && Abstact Email Validation.
----Both use Guzzle's Client and the same retry logic---
-*/
-$container->bind(
-    id: EmailValidationInterface::class,
-    concrete: fn() => new AbstractEmailValidationService(
-        apiKey: $config->apiKeys["abstract"]
-    )
-);
 
 $router = new Router(container: $container);
 $router->registerFromControllerAttrs(
@@ -67,5 +44,5 @@ $request = [
     "method"  =>  $_SERVER["REQUEST_METHOD"],
 ];
 
-$app = new App($router, $request, $config);
+$app = new App($container, $router, $request, $config);
 $app->run();
