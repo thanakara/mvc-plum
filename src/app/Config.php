@@ -7,6 +7,7 @@ namespace App;
 /**
  * @property-read ?array $repo
  * @property-read ?array $db
+ * @property-read ?array $apiKeys
  */
 class Config
 {
@@ -23,6 +24,10 @@ class Config
                 "user"      =>  $env["DB_USER"],
                 "host"      =>  $env["DB_HOST"],
                 "password"  =>  $env["DB_PASSWORD"],
+            ],
+            "apiKeys" => [
+                "emailable" =>  $env["EMAILABLE_API_KEY"] ?? "",
+                "abstract" =>   $env["ABSTRACT_API_KEY"] ?? "",
             ],
         ];
     }
