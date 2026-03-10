@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -e
+
+while read -r line; do
+    [[ -z "$line" || "$line" == \#* ]] && continue
+    export "$line"
+done < <(grep "DB" .env | tail -n +2)
+
+# this script runs in its own subshell;
+# export will only persists if we source it
+
+if ! (return 2>/dev/null); then
+    envload
+fi
