@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+set -e
+
+source ./scripts/dagger/export
+
+USR=$DB_USER
+DBN=$DB_NAME
+
+dagger call nginx-service \
+--user=$USR --db=$DBN \
+--password=env:DB_PASSWORD up --ports 8000:80
+
